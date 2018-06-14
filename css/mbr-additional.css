@@ -1,0 +1,34 @@
+.cid-qUSeVC2cVu .google-map {
+  height: 25rem;
+  position: relative;
+}
+.cid-qUSeVC2cVu .google-map iframe {
+  height: 100%;
+  width: 100%;
+}
+.cid-qUSeVC2cVu .google-map [data-state-details] {
+  color: #6b6763;
+  font-family: Montserrat;
+  height: 1.5em;
+  margin-top: -0.75em;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+.cid-qUSeVC2cVu .google-map[data-state] {
+  background: #e9e5dc;
+}
+.cid-qUSeVC2cVu .google-map[data-state="loading"] [data-state-details] {
+  display: none;
+}
+@media (min-width: 768px) {
+  .cid-qUSeVC2cVu .container > .row > .col-md-6:first-child {
+    padding-right: 30px;
+  }
+  .cid-qUSeVC2cVu .container > .row > .col-md-6:last-child {
+    padding-left: 30px;
+  }
+}
