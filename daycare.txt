@@ -1,23 +1,45 @@
-                    <div class="row text-center text-lg-left">
-                        <div class="col-lg-4 col-md-6 col-xs-8">
-                            <span class="fa fa-user-plus fa-5x"><h6>Specialized care takers</h6></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-xs-8">
-                            <span class="fa fa-home fa-5x"><h6>Clean environment</h6></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-xs-8">
-                            <span class="fa fa-bed fa-5x"><h6>Happy nap time</h6></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-xs-8">
-                            <span class="fa fa-cutlery fa-5x"><h6>Healthy snacks</h6></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-xs-8">
-                            <span class="fa fa-cubes fa-5x"><h6>Safe age appropriate toys & materials</h6></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-xs-8">
-                            <span class="fa fa-book fa-5x"><h6>Kids library</h6></span>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-xs-8">
-                            <span class="fa fa-snowflake-o fa-5x"><h6>Air conditioned premises</h6></span>
-                        </div>						
-                    </div>
+				
+					<ul class="row text-center text-lg-left day-care-facilities">
+						<li>
+							<span class="fa-stack fa-lg icon-color">
+							  <i class="fa fa-square fa-stack-5x"></i>
+							  <i class="fa fa-user-plus fa-4x"></i>
+							</span>
+							</li>
+						<li>
+							<span class="fa-stack fa-lg icon-color">
+							  <i class="fa fa-square fa-stack-5x"></i>
+							  <i class="fa fa-home fa-4x"></i>
+							</span>
+							</li>
+						<li>
+							<span class="fa-stack fa-lg icon-color">
+							  <i class="fa fa-square fa-stack-5x"></i>
+							  <i class="fa fa-bed fa-4x"></i>
+							</span>
+							</li>
+						<li>
+							<span class="fa-stack fa-lg icon-color">
+							  <i class="fa fa-square fa-stack-5x"></i>
+							  <i class="fa fa-cutlery fa-4x"></i>
+							</span>
+							</li>
+						<li>
+							<span class="fa-stack fa-lg icon-color">
+							  <i class="fa fa-square fa-stack-5x"></i>
+							  <i class="fa fa-cubes fa-4x"></i>
+							</span>
+							</li>
+						<li>
+							<span class="fa-stack fa-lg icon-color">
+							  <i class="fa fa-square fa-stack-5x"></i>
+							  <i class="fa fa-book fa-4x"></i>
+							</span>
+							</li>
+						<li>
+							<span class="fa-stack fa-lg icon-color">	
+							  <i class="fa fa-square fa-stack-5x"></i>
+							  <i class="fa fa-snowflake-o fa-4x"></i>
+							</span>
+							</li>		
+					</ul> 					
