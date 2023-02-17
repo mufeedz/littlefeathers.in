@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Azure Function Example</title>
+</head>
+<body>
+	<h1>Azure Function Example</h1>
+	<p>Enter your name and click the button below to call the Azure Function:</p>
+	<label for="name">Name:</label>
+	<input type="text" id="name">
+	<button onclick="callAzureFunction()">Call Function</button>
+	<p id="response"></p>
+
+	<script>
+		function callAzureFunction() {
+			const name = document.getElementById('name').value;
+			const url = 'https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==>&name=' + name;
+
+			fetch(url)
+				.then(response => response.text())
+				.then(responseText => document.getElementById('response').textContent = responseText);
+		}
+	</script>
+</body>
+</html>
