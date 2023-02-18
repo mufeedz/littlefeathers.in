@@ -17,8 +17,20 @@
 			const url = 'https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==&name=' + name;
 
 			fetch(url)
-				.then(response => response.text())
-				.then(responseText => document.getElementById('response').textContent = responseText);
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.text();
+				})
+				.then(responseText => {
+					console.log('Response text:', responseText);
+					document.getElementById('response').textContent = responseText;
+				})
+				.catch(error => {
+					console.error('Error calling Azure Function:', error);
+					document.getElementById('response').textContent = 'Error calling Azure Function: ' + error;
+				});
 		}
 	</script>
 </body>
