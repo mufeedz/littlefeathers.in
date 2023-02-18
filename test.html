@@ -14,7 +14,7 @@
 	<script>
 		function callAzureFunction() {
 			const name = document.getElementById('name').value;
-			const url = 'https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==>&name=' + name;
+			const url = 'https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==&name=' + name;
 
 			fetch(url)
 				.then(response => response.text())
