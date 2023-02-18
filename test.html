@@ -26,50 +26,51 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function() {
-      $("#form").submit(function(event) {
-        event.preventDefault();
+	$(document).ready(function() {
+	  $("#form").submit(function(event) {
+		event.preventDefault();
 
-        // Show the spinner
-        $("#spinner").show();
+		// Show the spinner
+		$("#spinner").show();
 
-        // Disable the submit button
-        $("#submit-btn").prop("disabled", true);
+		// Disable the submit button
+		$("#submit-btn").prop("disabled", true);
 
-        // Send the request to the Azure function
-        $.ajax({
-          url: "https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==",
-          method: "POST",
-          data: { name: $("#name").val() },
-          success: function(result) {
-            // Hide the spinner
-            $("#spinner").hide();
+		// Send the request to the Azure function
+		$.ajax({
+		  url: "https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==",
+		  method: "POST",
+		  data: { name: $("#name").val() },
+		  dataType: "json", // Specify that we're expecting JSON
+		  success: function(result) {
+			// Hide the spinner
+			$("#spinner").hide();
 
-            // Enable the submit button
-            $("#submit-btn").prop("disabled", false);
+			// Enable the submit button
+			$("#submit-btn").prop("disabled", false);
 
-            // Show the result
-            $("#result").text(result);
-            $("#result").removeClass("alert-danger");
-            $("#result").addClass("alert-success");
-            $("#result").show();
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-            // Hide the spinner
-            $("#spinner").hide();
+			// Show the result
+			$("#result").text(result.message); // Get the message property from the response object
+			$("#result").removeClass("alert-danger");
+			$("#result").addClass("alert-success");
+			$("#result").show();
+		  },
+		  error: function(jqXHR, textStatus, errorThrown) {
+			// Hide the spinner
+			$("#spinner").hide();
 
-            // Enable the submit button
-            $("#submit-btn").prop("disabled", false);
+			// Enable the submit button
+			$("#submit-btn").prop("disabled", false);
 
-            // Show an error message
-            $("#result").text("Error: " + errorThrown);
-            $("#result").removeClass("alert-success");
-            $("#result").addClass("alert-danger");
-            $("#result").show();
-          }
-        });
-      });
-    });
+			// Show an error message
+			$("#result").text("Error: " + errorThrown);
+			$("#result").removeClass("alert-success");
+			$("#result").addClass("alert-danger");
+			$("#result").show();
+		  }
+		});
+	  });
+	});
   </script>
 </body>
 </html>
