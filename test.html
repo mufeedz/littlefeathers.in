@@ -1,37 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Azure Function Example</title>
-</head>
-<body>
-	<h1>Azure Function Example</h1>
-	<p>Enter your name and click the button below to call the Azure Function:</p>
-	<label for="name">Name:</label>
-	<input type="text" id="name">
-	<button onclick="callAzureFunction()">Call Function</button>
-	<p id="response"></p>
+  <head>
+    <title>My Page</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <h1>My Page</h1>
+      <form>
+        <div class="form-group">
+          <label for="nameInput">Name:</label>
+          <input type="text" class="form-control" id="nameInput">
+        </div>
+        <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+      </form>
+      <!-- Add a spinner to indicate that the request is being processed -->
+      <div class="spinner-border text-primary" role="status" id="spinner" style="display:none;">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="result" style="display:none;"></div>
+    </div>
+    <!-- Include Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+      // When the Submit button is clicked, send a request to the Azure Function
+      $("#submitBtn").click(function() {
+        // Show the spinner to indicate that the request is being processed
+        $("#spinner").show();
+        // Disable the Submit button to prevent multiple requests
+        $("#submitBtn").prop("disabled", true);
 
-	<script>
-		function callAzureFunction() {
-			const name = document.getElementById('name').value;
-			const url = 'https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==&name=' + name;
+        // Send a request to the Azure Function
+        $.ajax({
+          url: "https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==&name=" + encodeURIComponent($("#nameInput").val()),
+          method: "GET",
+          success: function(result) {
+            // Hide the spinner and enable the Submit button
+            $("#spinner").hide();
+            $("#submitBtn").prop("disabled", false);
 
-			fetch(url)
-				.then(response => {
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
-					}
-					return response.text();
-				})
-				.then(responseText => {
-					console.log('Response text:', responseText);
-					document.getElementById('response').textContent = responseText;
-				})
-				.catch(error => {
-					console.error('Error calling Azure Function:', error);
-					document.getElementById('response').textContent = 'Error calling Azure Function: ' + error;
-				});
-		}
+            // Show the result
+            $(".result").text(result);
+            $(".result").show();
+          },
+          error: function(xhr, status, error) {
+            // Hide the spinner and enable the Submit button
+            $("#spinner").hide();
+            $("#submitBtn").prop("disabled", false);
+           
+			// Show an error message
+			$(".result").text("Error: " + error);
+			$(".result").show();
+		  }
+		});
+	  });
 	</script>
-</body>
-</html>
