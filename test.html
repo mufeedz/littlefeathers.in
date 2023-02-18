@@ -1,60 +1,75 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My Page</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  </head>
-  <body>
-    <div class="container">
-      <h1>My Page</h1>
-      <form>
-        <div class="form-group">
-          <label for="nameInput">Name:</label>
-          <input type="text" class="form-control" id="nameInput">
-        </div>
-        <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
-      </form>
-      <!-- Add a spinner to indicate that the request is being processed -->
-      <div class="spinner-border text-primary" role="status" id="spinner" style="display:none;">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure Function Test</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <h1>Azure Function Test</h1>
+    <form id="form">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name">
+      </div>
+      <button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+    </form>
+    <div class="text-center">
+      <div class="spinner-border" role="status" id="spinner" style="display:none;">
         <span class="sr-only">Loading...</span>
       </div>
-      <div class="result" style="display:none;"></div>
     </div>
-    <!-- Include Bootstrap JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script>
-      // When the Submit button is clicked, send a request to the Azure Function
-      $("#submitBtn").click(function() {
-        // Show the spinner to indicate that the request is being processed
-        $("#spinner").show();
-        // Disable the Submit button to prevent multiple requests
-        $("#submitBtn").prop("disabled", true);
+    <div class="alert alert-success mt-3" role="alert" id="result" style="display:none;"></div>
+  </div>
 
-        // Send a request to the Azure Function
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#form").submit(function(event) {
+        event.preventDefault();
+
+        // Show the spinner
+        $("#spinner").show();
+
+        // Disable the submit button
+        $("#submit-btn").prop("disabled", true);
+
+        // Send the request to the Azure function
         $.ajax({
-          url: "https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==&name=" + encodeURIComponent($("#nameInput").val()),
-          method: "GET",
+          url: "https://mytimetest.azurewebsites.net/api/MyTimeStamp?code=8_jY_z5fx2mt47X-xQlE3-X8Bqdu6Ap1jTKOm2dKAj_uAzFujYSUhg==",
+          method: "POST",
+          data: { name: $("#name").val() },
           success: function(result) {
-            // Hide the spinner and enable the Submit button
+            // Hide the spinner
             $("#spinner").hide();
-            $("#submitBtn").prop("disabled", false);
+
+            // Enable the submit button
+            $("#submit-btn").prop("disabled", false);
 
             // Show the result
-            $(".result").text(result);
-            $(".result").show();
+            $("#result").text(result);
+            $("#result").removeClass("alert-danger");
+            $("#result").addClass("alert-success");
+            $("#result").show();
           },
-          error: function(xhr, status, error) {
-            // Hide the spinner and enable the Submit button
+          error: function(jqXHR, textStatus, errorThrown) {
+            // Hide the spinner
             $("#spinner").hide();
-            $("#submitBtn").prop("disabled", false);
-           
-			// Show an error message
-			$(".result").text("Error: " + error);
-			$(".result").show();
-		  }
-		});
-	  });
-	</script>
+
+            // Enable the submit button
+            $("#submit-btn").prop("disabled", false);
+
+            // Show an error message
+            $("#result").text("Error: " + errorThrown);
+            $("#result").removeClass("alert-success");
+            $("#result").addClass("alert-danger");
+            $("#result").show();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
